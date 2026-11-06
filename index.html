@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="af">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How big are you?</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 40px 15px;
+  }
+
+  .box {
+    background-color: white;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-top: 0;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 16px;
+    width: 70%;
+    border: 2px solid #999;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px 5px 0 5px;
+    background-color: #3a7bd5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #2c5fa8;
+  }
+
+  .no-button {
+    background-color: #d9534f;
+  }
+
+  .no-button:hover {
+    background-color: #b52b27;
+  }
+
+  .message {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="box">
+  <h1>How big are you?</h1>
+
+  <!-- Step 1: choose number -->
+  <div id="step1">
+    <p>Choose number 1 to 8 (cm):</p>
+    <input type="number" id="numberInput" step="any" placeholder="Type a number">
+    <br>
+    <button onclick="checkNumber()">Check</button>
+    <div class="message" id="result"></div>
+  </div>
+
+  <!-- Step 2: ask again -->
+  <div id="step2" class="hidden">
+    <p>Wil jy n ander getal kies?</p>
+    <button onclick="answerAgain('ja')">Ja</button>
+    <button class="no-button" onclick="answerAgain('nee')">Nee</button>
+    <div class="message" id="finalResult"></div>
+  </div>
+</div>
+
+<script>
+  function checkNumber() {
+    var input = document.getElementById('numberInput').value;
+    var result = document.getElementById('result');
+
+    if (input === '' || isNaN(parseFloat(input))) {
+      result.textContent = 'Please type a number first.';
+      return;
+    }
+
+    var number1 = parseFloat(input);
+
+    if (number1 >= 8) {
+      result.textContent = 'Nee fok eina';
+    } else if (number1 >= 6 && number1 <= 7) {
+      result.textContent = 'Average';
+    } else {
+      result.textContent = 'Shame';
+    }
+
+    document.getElementById('step2').classList.remove('hidden');
+  }
+
+  function answerAgain(again) {
+    var finalResult = document.getElementById('finalResult');
+
+    if (again === 'ja') {
+      finalResult.textContent = "Jy lieg, jy's klein";
+    } else {
+      finalResult.textContent = 'Is jy te bang om uit te vind?';
+    }
+  }
+</script>
+
+</body>
+</html>
